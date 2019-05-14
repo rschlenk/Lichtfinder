@@ -1,0 +1,493 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_functions" id="Lq(nK,|QOe[~b2Q]#rUL" x="149" y="24">
+    <statement name="SETUP_FUNC">
+      <block type="stepper_config" id="hp_sMJ[*TzRD[L{1q@-k">
+        <mutation number_of_pins="FOUR"></mutation>
+        <field name="STEPPER_NAME">Schrittmotor</field>
+        <field name="STEPPER_NUMBER_OF_PINS">FOUR</field>
+        <field name="STEPPER_PIN1">26</field>
+        <field name="STEPPER_PIN2">25</field>
+        <field name="STEPPER_PIN3">33</field>
+        <field name="STEPPER_PIN4">32</field>
+        <value name="STEPPER_STEPS">
+          <block type="math_number" id="e*vGTn#xE)Eq+drgh3/~">
+            <field name="NUM">4077</field>
+          </block>
+        </value>
+        <value name="STEPPER_SPEED">
+          <block type="math_number" id=",]dAA^ek7i!:20#[EQR|">
+            <field name="NUM">3</field>
+          </block>
+        </value>
+        <next>
+          <block type="serial_setup" id="Bv60:R{:27ft1f^(8IYp">
+            <field name="SERIAL_ID">Serial</field>
+            <field name="SPEED">115200</field>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="LOOP_FUNC">
+      <block type="variables_set" id="sB;Ho?ZZ|Tk|kYGZUI-q">
+        <field name="VAR">HelligkeitMax</field>
+        <value name="VALUE">
+          <block type="math_number" id="sjUQLx)qS0),Xed`MH?`">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="xP?0R0BRR!sa(MSI;{)n">
+            <field name="VAR">SchrittMax</field>
+            <value name="VALUE">
+              <block type="math_number" id="240FlOBQhk2)0Djb`,SX">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <next>
+              <block type="serial_print" id="32j8:Z5TMPMp3@?k;j{Z">
+                <field name="SERIAL_ID">Serial</field>
+                <field name="NEW_LINE">TRUE</field>
+                <comment pinned="true" h="80" w="160">Ausgabe der Helligkeit zu Debug-Zwecken</comment>
+                <value name="CONTENT">
+                  <block type="text" id="3J%dsF%ne23UciKOO700">
+                    <field name="TEXT">Neue Messung</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_for" id="7(r@y)j@hE-FQ0vTz38b">
+                    <field name="VAR">Schritt</field>
+                    <value name="FROM">
+                      <block type="math_number" id="M,N8]EX[%KnvpSRUnWQ0">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <value name="TO">
+                      <block type="math_number" id="a)#}VvW9cD=)tD?MVZvl">
+                        <field name="NUM">15</field>
+                      </block>
+                    </value>
+                    <value name="BY">
+                      <block type="math_number" id="Pqe6w8f]b8Fz[;|lQ7Vn">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                    <statement name="DO">
+                      <block type="stepper_step" id="w4{Q,6fzG-ynSu2|qOl;">
+                        <field name="STEPPER_NAME">Schrittmotor</field>
+                        <value name="STEPPER_STEPS">
+                          <block type="math_number" id="+[#e.Impb{%D|hh-~OH@">
+                            <field name="NUM">128</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set" id="5QEd7z4fra]LM|-E.[5n">
+                            <field name="VAR">Helligkeit</field>
+                            <value name="VALUE">
+                              <block type="io_analogread" id="@yP/#{YuvLo?yO~^/;ew">
+                                <field name="PIN">35</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="controls_if" id="[MtxFJ,WLM41nyYp5)42">
+                                <value name="IF0">
+                                  <block type="logic_compare" id="@!kfca]A1|l-99sip`bQ">
+                                    <field name="OP">GT</field>
+                                    <value name="A">
+                                      <block type="variables_get" id="jZ!6h^N/_qDykp4io{X}">
+                                        <field name="VAR">Helligkeit</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="variables_get" id="9V9NBBS=*qmTuYwv:ZF4">
+                                        <field name="VAR">HelligkeitMax</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO0">
+                                  <block type="variables_set" id="XEQZE^rsq[em3}N10;H0">
+                                    <field name="VAR">HelligkeitMax</field>
+                                    <value name="VALUE">
+                                      <block type="variables_get" id="sD|e}^*LjxG9hNdopr*_">
+                                        <field name="VAR">Helligkeit</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set" id=")ij?ZeaOKFqHTSBPPnY]">
+                                        <field name="VAR">SchrittMax</field>
+                                        <value name="VALUE">
+                                          <block type="variables_get" id="Go:idnxYx-4N;w@pk9L;">
+                                            <field name="VAR">Schritt</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="serial_print" id="5A!,{rN.P-j_nhy~w.2U">
+                                    <field name="SERIAL_ID">Serial</field>
+                                    <field name="NEW_LINE">TRUE</field>
+                                    <value name="CONTENT">
+                                      <block type="variables_get" id="Zmz:.B~T)U3v3}JiU[dR">
+                                        <field name="VAR">Helligkeit</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="time_delay" id=",tE}pbJ7#uz_2*W}Q]iZ">
+                                        <value name="DELAY_TIME_MILI">
+                                          <block type="math_number" id="p2s/kS4?#6Sy7x;b@]F6">
+                                            <field name="NUM">100</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="stepper_step" id="Ap{l*JxFEH!|S7K68GY5">
+                        <field name="STEPPER_NAME">Schrittmotor</field>
+                        <value name="STEPPER_STEPS">
+                          <block type="math_number" id="8%3Cz[ooJ`ifP*;maBF(">
+                            <field name="NUM">-2048</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set" id="|0XmQOf@{3i8*.RKF}B#">
+                            <field name="VAR">Schritt</field>
+                            <comment pinned="true" h="80" w="160">Es sind nicht mehr veschiedene Variablennamen in Ardublockly möglich, daher Wiederbenutzung.</comment>
+                            <value name="VALUE">
+                              <block type="base_map" id=")8|:qIF6Fys}}r6m{^MD">
+                                <value name="NUM">
+                                  <block type="variables_get" id="Taz;;q=2ucY=7R1`!cv?">
+                                    <field name="VAR">SchrittMax</field>
+                                  </block>
+                                </value>
+                                <value name="IN_MIN">
+                                  <block type="math_number" id="419by)]-m#j]N[D61vL,">
+                                    <field name="NUM">0</field>
+                                  </block>
+                                </value>
+                                <value name="IN_MAX">
+                                  <block type="math_number" id="7xMlC4;qysNrfR=6TaDQ">
+                                    <field name="NUM">15</field>
+                                  </block>
+                                </value>
+                                <value name="OUT_MIN">
+                                  <block type="math_number" id="aoTAUL?[bckv7O_fA~G_">
+                                    <field name="NUM">0</field>
+                                  </block>
+                                </value>
+                                <value name="OUT_MAX">
+                                  <block type="math_number" id="dZU8+8#Kk]vXXMDCBP6|">
+                                    <field name="NUM">7</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="io_digitalwrite" id="e{~N,N5xk23?2Vb}``^)">
+                                <field name="PIN">13</field>
+                                <value name="STATE">
+                                  <block type="io_highlow" id="f(rA]_GcX.]]#4#*Gv)g">
+                                    <field name="STATE">HIGH</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="io_digitalwrite" id="CJjKzeR]zp|ur|fp3aWV">
+                                    <field name="PIN">12</field>
+                                    <value name="STATE">
+                                      <block type="io_highlow" id="a%c]m7pFcc+UosY!~M_m">
+                                        <field name="STATE">HIGH</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="io_digitalwrite" id="h?m/(SbS2!X;~U|t#n/[">
+                                        <field name="PIN">14</field>
+                                        <value name="STATE">
+                                          <block type="io_highlow" id="W0#quRqgV/{D5!tC4dwJ">
+                                            <field name="STATE">HIGH</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="io_digitalwrite" id="q^Ous*AJN~:1,,B%*C%w">
+                                            <field name="PIN">27</field>
+                                            <value name="STATE">
+                                              <block type="io_highlow" id="aK*l)Tt9P=?InH;5wzVn">
+                                                <field name="STATE">HIGH</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="controls_if" id="0As|X~Y*bcy[5nYM_X},">
+                                                <mutation elseif="7"></mutation>
+                                                <comment pinned="true" h="80" w="160">Ardublockly kann keine Arrays, daher diese umständliche Realisierung.</comment>
+                                                <value name="IF0">
+                                                  <block type="logic_compare" id="?./h}WO`T9U8@|ysB`Cr">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="variables_get" id="fp6pwuy|)OF+;i#v)]bu">
+                                                        <field name="VAR">Schritt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id="f@3/B3Ddc]AL@;-Mt5{X">
+                                                        <field name="NUM">0</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO0">
+                                                  <block type="io_digitalwrite" id="6y;b,Ro@FlBVm:9TcClE">
+                                                    <field name="PIN">13</field>
+                                                    <value name="STATE">
+                                                      <block type="io_highlow" id="W)aTK#`?N*ONx/)*:AcN">
+                                                        <field name="STATE">LOW</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </statement>
+                                                <value name="IF1">
+                                                  <block type="logic_compare" id="?M-fZ8Z.jR.zkgX3vHM+">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="variables_get" id=")Fm_4:Mt!u)YH%%eEYD#">
+                                                        <field name="VAR">Schritt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id="WVstx~9WrXF6?;cLT4Sl">
+                                                        <field name="NUM">1</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO1">
+                                                  <block type="io_digitalwrite" id="j*4rz-E2t1%;_`xoAOHW">
+                                                    <field name="PIN">13</field>
+                                                    <value name="STATE">
+                                                      <block type="io_highlow" id="fsaO5MgLbsy14~ee6TVo">
+                                                        <field name="STATE">LOW</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="io_digitalwrite" id="}icsdv7};Do25.M!S}.m">
+                                                        <field name="PIN">12</field>
+                                                        <value name="STATE">
+                                                          <block type="io_highlow" id="r4L*Rk!Td=ue66GS]IFJ">
+                                                            <field name="STATE">LOW</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                                <value name="IF2">
+                                                  <block type="logic_compare" id="r|%nAR]2C-8cS|C9-r?O">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="variables_get" id="]Wy6gHe8n4cY{~AW~d|S">
+                                                        <field name="VAR">Schritt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id="~n{q+v|yli6bB5`wA5]H">
+                                                        <field name="NUM">2</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO2">
+                                                  <block type="io_digitalwrite" id="-43w8;@D}8~?!ndkUgZ}">
+                                                    <field name="PIN">12</field>
+                                                    <value name="STATE">
+                                                      <block type="io_highlow" id="{J+39/ZvC/o303%Mhxpz">
+                                                        <field name="STATE">LOW</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </statement>
+                                                <value name="IF3">
+                                                  <block type="logic_compare" id="85Q/~CdqJ1-K5a.])v-Q">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="variables_get" id="45iu6U]]#C7Sk_jNDB`D">
+                                                        <field name="VAR">Schritt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id="NnYl}[wKS[8V/P`#s?[l">
+                                                        <field name="NUM">3</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO3">
+                                                  <block type="io_digitalwrite" id="2rtPzlTcAQ=COJYp9fm/">
+                                                    <field name="PIN">12</field>
+                                                    <value name="STATE">
+                                                      <block type="io_highlow" id="c7UInYwk!+.*DV{oUd:A">
+                                                        <field name="STATE">LOW</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="io_digitalwrite" id="TM@VE0~8Cf,`Q3[-n=EV">
+                                                        <field name="PIN">14</field>
+                                                        <value name="STATE">
+                                                          <block type="io_highlow" id="kH5|=Sz,EEyu%5R6mNb@">
+                                                            <field name="STATE">LOW</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                                <value name="IF4">
+                                                  <block type="logic_compare" id="=]EPy?*[|GWC4W?zBZ:i">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="variables_get" id="E8wwOB~N)X!Deh*i7qv[">
+                                                        <field name="VAR">Schritt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id="/nIVQJy|idQahqS_DCdq">
+                                                        <field name="NUM">4</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO4">
+                                                  <block type="io_digitalwrite" id="KT/YTavOA9l*l+%L-:~_">
+                                                    <field name="PIN">14</field>
+                                                    <value name="STATE">
+                                                      <block type="io_highlow" id=":irzlFdE:j,SLh,6rPPu">
+                                                        <field name="STATE">LOW</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </statement>
+                                                <value name="IF5">
+                                                  <block type="logic_compare" id="v^CgIr8BSGEbIxUMnZAB">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="variables_get" id="`A*W_grN`PtSmWir4Y%d">
+                                                        <field name="VAR">Schritt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id="oE%@%*9z5Ti9IqI_1isp">
+                                                        <field name="NUM">5</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO5">
+                                                  <block type="io_digitalwrite" id="6[Y4Ff-Wyzs2J*O7fX5%">
+                                                    <field name="PIN">14</field>
+                                                    <value name="STATE">
+                                                      <block type="io_highlow" id="-UwYKAZYM.1}H`rrn*GF">
+                                                        <field name="STATE">LOW</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="io_digitalwrite" id="^w:480Z5V3?VAmJ[Ds:[">
+                                                        <field name="PIN">27</field>
+                                                        <value name="STATE">
+                                                          <block type="io_highlow" id="9cl(fge,7{[+1i%8FsX[">
+                                                            <field name="STATE">LOW</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                                <value name="IF6">
+                                                  <block type="logic_compare" id="D|h/^VHb3:`O2=gK,b/s">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="variables_get" id="VlBnfY}m(c}jItBQl`U~">
+                                                        <field name="VAR">Schritt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id="]ZJqZo+J61.fK6pi:2,~">
+                                                        <field name="NUM">6</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO6">
+                                                  <block type="io_digitalwrite" id="M;ndGvc-%QFx4Y-P4g{k">
+                                                    <field name="PIN">27</field>
+                                                    <value name="STATE">
+                                                      <block type="io_highlow" id="PvYttOY)fx!R03=+}k`W">
+                                                        <field name="STATE">LOW</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </statement>
+                                                <value name="IF7">
+                                                  <block type="logic_compare" id="Wcj7^G^#ur*yr73~9Ki~">
+                                                    <field name="OP">EQ</field>
+                                                    <value name="A">
+                                                      <block type="variables_get" id="eZ@c;/#X/U!:x~GUFp~H">
+                                                        <field name="VAR">Schritt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number" id=":ckV92|VrL|k+90rXg.b">
+                                                        <field name="NUM">7</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <statement name="DO7">
+                                                  <block type="io_digitalwrite" id=":QNpX?/ZYrn%exL]IUbH">
+                                                    <field name="PIN">27</field>
+                                                    <value name="STATE">
+                                                      <block type="io_highlow" id="vGP3D_@+tEO(26##-I(A">
+                                                        <field name="STATE">LOW</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="io_digitalwrite" id="Kr+#l9DCAJSqcn%0Ku7O">
+                                                        <field name="PIN">13</field>
+                                                        <value name="STATE">
+                                                          <block type="io_highlow" id="?]JRM:7v#B?K:T1NF{0z">
+                                                            <field name="STATE">LOW</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

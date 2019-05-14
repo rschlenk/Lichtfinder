@@ -1,0 +1,29 @@
+Lichtfinder
+===========
+Projekt im Rahmen des openHPI Kurses "Wie programmiere ich meinen ersten Mini-Computer?"
+
+Funktion
+--------
+Der aus Schrittmotor und Fotowiderstand bestehende Aufbau führt 360 Grad Scans durch und berechnet die Richtung mit der größten Helligkeit. Das Ergebnis wird mit Hilfe von vier LEDs angezeigt, die einzeln oder paarweise aufleuchten (N, NO, O, SO, S, SW, W, NW).
+Dieses System kann in modifizierter Form (= ohne LEDs) für ein autonom fahrendes Auto verwendet werden. 
+
+Bauteile
+--------
+ESP32 Dev Board
+1x Schrittmotor 5V 28BYJ-48 mit Treiberplatine ULN2003
+1x Fotowiderstand
+4x LED
+1x Widerstand 220 Ohm
+1x extra Stromversorgung für Motor (5V)
+
+Aufbau
+------
+Die vier Steuerpins der Schrittmotor Treiberplatine werden mit den ESP32 Pins 26, 25, 33, 32 verbunden. Achtung: Bei vorliegender Version der Treiberplatine mussten Pins IN2 und IN3 vertauscht werden. Die Spannungspins der Treiberplatine werden mit der externen Stromversorgung verbunden (5V, je nach Motor auch bis 12V).
+Die LEDs werden an die ESP32 Pins 13, 12, 14, 27 angeschlossen. Die negativen Beinchen der LEDs werden über den gemeinsamen 220 Ohm Widerstand auf GND gelegt.
+Zuletzt wird der Fotowiderstand auf eine geeignete Plastikscheibe montiert (z.B. Deckel eines Tetrapaks), auf die Motorachse gesteckt und über ein langes Anschlusskabel (muss sich um 360 Grad verdrehen können) mit ESP32 Pin 35 und dem 220 Ohm Widerstand verbunden.
+Zum Debuggen ist es möglich, die ausgelesenen Helligkeitswerte im seriellen Monitor der Arduino IDE zu verfolgen.
+
+Demo
+----
+Ein Video des Aufbaus im laufenden Betrieb ist verfügbar unter: https://github.com/rschlenk/Lichtfinder
+
