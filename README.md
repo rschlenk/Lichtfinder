@@ -1,0 +1,2 @@
+# Lichtfinder
+Projekt openHPI Kurs
